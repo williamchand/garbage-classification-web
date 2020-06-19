@@ -23,7 +23,7 @@ function App() {
   const categories = { 0: 'Cardboard', 1: 'Glass', 2: 'Metal', 3: 'Paper', 4: 'Plastic', 5: 'Trash' };
   const reducer = (state, event) =>
     machine.states[state].on[event] || machine.initial;
-
+  console.log(results);
   const [appState, dispatch] = useReducer(reducer, machine.initial);
   const next = () => dispatch("next");
 
