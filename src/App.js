@@ -1,7 +1,6 @@
 import React, { useState, useRef, useReducer } from "react";
 import * as tf from '@tensorflow/tfjs';
 import "./App.css";
-
 const machine = {
   initial: "initial",
   states: {
@@ -23,13 +22,13 @@ function App() {
   const categories = { 0: 'Cardboard', 1: 'Glass', 2: 'Metal', 3: 'Paper', 4: 'Plastic', 5: 'Trash' };
   const reducer = (state, event) =>
     machine.states[state].on[event] || machine.initial;
-  console.log(results);
+  // console.log(results);
   const [appState, dispatch] = useReducer(reducer, machine.initial);
   const next = () => dispatch("next");
 
   const loadModel = async () => {
     next();
-    const model = await tf.loadLayersModel('assets/model.json');
+    const model = await tf.loadLayersModel('/assets/model.json');
     setModel(model);
     next();
   };
@@ -37,9 +36,9 @@ function App() {
   const identify = async () => {
     next();
     await tf.tidy(() => {
-      let img = tf.browser.fromPixels(imageRef.current, 1);
-      img = tf.image.resizeBilinear(img, [48, 48])
-      img = img.reshape([1, 48, 48, 1]);
+      let img = tf.browser.fromPixels(imageRef.current, 3);
+      img = tf.image.resizeBilinear(img, [224, 224])
+      img = img.reshape([1, 224, 224, 3]);
       img = tf.cast(img, 'float32');
       const results = model.predict(img);
       setResults(Array.from(results.dataSync()));
@@ -91,7 +90,7 @@ function App() {
           {categories[results.reduce((iMax, x, i, arr) => x > arr[iMax] ? i : iMax, 0)]}
         </div>
       )}
-      {showResults && (
+      {/* {showResults && (
         <ul>
           {results.map((probability, index) => (
             <li key={categories[index]}>{`${categories[index]}: %${(probability * 100).toFixed(
@@ -99,7 +98,7 @@ function App() {
             )}`}</li>
           ))}
         </ul>
-      )}
+      )} */}
       <button onClick={actionButton[appState].action || (() => { })}>
         {actionButton[appState].text}
       </button>
