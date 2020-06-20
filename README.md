@@ -11,6 +11,9 @@ run yarn start
 run yarn build
 # deployment
 install firebase cli
+
 firebase login
+
 firebase init
+
 firebase deploy
