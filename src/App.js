@@ -69,7 +69,7 @@ function App() {
     initial: { action: loadModel, text: "Load Model" },
     loadingModel: { text: "Loading Model..." },
     modelReady: { action: upload, text: "Upload Image" },
-    imageReady: { action: identify, text: "Identify Face" },
+    imageReady: { action: identify, text: "Identify Waste" },
     identifying: { text: "Identifying..." },
     complete: { action: reset, text: "Reset" }
   };
